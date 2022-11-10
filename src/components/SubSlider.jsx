@@ -40,7 +40,7 @@ const SubSlider = ({index, setIndex, open, setOpen, subSlider, setSubSlider}) =>
   return (
     <>
     <div className={`hidden md:hidden lg:block absolute top-1/2 -translate-y-1/2 left-1/2 z-20 -translate-x-1/2 ${open}`}>
-        <button onClick={handleClose} className="absolute top-10 left-[83%] -translate-x-1/2">
+        <button onClick={handleClose} className="absolute top-10 xl:left-[83%] lg:left-[97%] -translate-x-1/2">
             <img src={close} alt="Este es el icono se cerrar" />
         </button>
         <section className='grid md:grid-cols-4 md:ml-40 ml-0'>

@@ -1,5 +1,5 @@
 
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import menos from "../images/icon-minus.svg"
 import plus from "../images/icon-plus.svg"
 import { UserContext } from "./context/Provider"
@@ -7,23 +7,36 @@ import { UserContext } from "./context/Provider"
 
 const Compra = () => {
 
-  const {setEstado} = useContext(UserContext);
+  const valores = [];
+
+  const {setEstado, data, setValor} = useContext(UserContext);
+  const [incrementador, setIncrementador] = useState(0);
 
   const valor = 125000;
   const nuevoValor = valor.toLocaleString('en-US');
 
-  const [produ,  setProdu] = useState(12500);
+  const [produ,  setProdu] = useState(0);
   const [cantidad, setCantidad] = useState(0);
+  const [datos, setDatos] = useState({
+    datosIndex : 0,
+    datosCatidad : 0,
+    datosProdu : 0,
+    datosEstado : false
+  });
 
 
   const handlePlus = () => {
-    setCantidad(cantidad+1)
-    setProdu(produ + 12500)
+    setCantidad(cantidad+1);
+    datos.datosCatidad = cantidad + 1;
+    setProdu(produ + 12500);
+    datos.datosProdu = produ + 12500;
   };
 
   const handleMenos = () => {
-    setCantidad(cantidad-1)
-    setProdu(produ - 12500)
+    setCantidad(cantidad-1);
+    datos.datosCatidad = cantidad - 1;
+    setProdu(produ - 12500);
+    datos.datosProdu = produ - 12500;
     if(cantidad <= 0){
       setCantidad(0)
     }
@@ -31,10 +44,23 @@ const Compra = () => {
 
 
   const handleAdd = () => {
-    setEstado(true)
-  }
+    setEstado(true);
+    datos.datosEstado = true;
+    datos.datosIndex = data;
+    valores.push(datos);
 
-  console.log(produ)
+    setIncrementador(incrementador+1)
+    // setValor(incrementador)
+    localStorage.setItem('valores', JSON.stringify(valores));
+    // console.log(valores)
+  };
+
+  useEffect(() => {
+    setValor(JSON.parse(localStorage.getItem('valores')))
+  },[incrementador])
+
+
+  // console.log(newDatos)
 
   return (
     <section className="container mx-auto px-7 lg:w-2/3 lg:mt-20 lg:ml-20 md:mt-20 xl:ml-0 xl:mt-32">
@@ -46,7 +72,7 @@ const Compra = () => {
     </p>
     <div className="flex items-center md:grid-cols-3 justify-between mb-10 md:justify-start lg:grid lg:grid-cols-3 xl:grid xl:grid-cols-2">
       <h2 className="text-3xl font-bold">${nuevoValor}</h2>
-      <span className="bg-Pale-orange py-0 rounded text-orange-primary font-bold px-2 -ml-20 lg:w-12 md:px-0 md:ml-5 xl:-ml-10">50%</span>
+      <span className="bg-Pale-orange py-0 rounded text-orange-primary font-bold px-2 -ml-20 lg:w-12 md:px-0 md:ml-5 xl:-ml-10 lg:mx-8">50%</span>
       <span className="text-Grayish-blue line-through text-lg md:ml-[70%] md:mr-20 xl:ml-0">$250.00</span>
     </div>
 

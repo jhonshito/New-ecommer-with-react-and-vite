@@ -9,11 +9,15 @@ import iconoDelete from '../images/icon-delete.svg'
 import { UserContext } from './context/Provider'
 const Productos = () => {
 
-  const { data, estado } = useContext(UserContext);
+  const { data, estado, valor } = useContext(UserContext);
 
   const imgSmallArray = [imgSmall1,imgSmall2,imgSmall3,imgSmall4];
 
-  console.log(estado)
+  if(valor == null){
+    return valor
+  }
+  let [nuevoValor] = valor
+  
   return (
     <>
     {
@@ -21,7 +25,7 @@ const Productos = () => {
       <section className='w-full mt-5'>
           <div className='flex w-full justify-center'>
             <div className='ml-2'>
-              <img className='w-16 rounded-md' src={imgSmallArray[data]} alt="Esta es la imagen del producto" />
+              <img className='w-16 rounded-md' src={imgSmallArray[nuevoValor.datosIndex]} alt="Esta es la imagen del producto" />
             </div>
               <div className='grid grid-cols-4 w-full mx-3'>
                 <p className='col-span-4 text-Dark-grayish-blue'>Fall Limited Edition Sneakers</p>
@@ -31,14 +35,14 @@ const Productos = () => {
                 <div className='flex gap-1 -mt-3'>
                   <p className='text-Dark-grayish-blue'>125.00</p>
                   <p className='text-Dark-grayish-blue'>x</p>
-                  <p className='text-Dark-grayish-blue'>0</p>
-                  <p className='font-bold'>$375.00</p>
+                  <p className='text-Dark-grayish-blue'>{nuevoValor.datosCatidad}</p>
+                  <p className='font-bold'>${nuevoValor.datosProdu}</p>
                 </div>
               </div>
           </div>
       </section>
       <button className='bg-orange-primary w-[90%] grid text-white font-bold justify-items-center items-center text-center mx-auto mt-5 py-4 rounded-lg'>Checkout</button>
-      </> : <p className=" w-6/12 mx-auto mt-14 text-gray-500">Your cart is empety</p>
+      </> :<p className="w-6/12 mx-auto mt-14 bg-black text-gray-500">Your cart is empety</p>
     }
     
     </>
