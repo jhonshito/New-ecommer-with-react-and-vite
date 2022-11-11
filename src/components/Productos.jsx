@@ -1,5 +1,5 @@
 
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 // imagenes pequeñas
 import imgSmall1 from '../images/image-product-1-thumbnail.jpg'
 import imgSmall2 from '../images/image-product-2-thumbnail.jpg'
@@ -9,19 +9,32 @@ import iconoDelete from '../images/icon-delete.svg'
 import { UserContext } from './context/Provider'
 const Productos = () => {
 
-  const { data, estado, valor } = useContext(UserContext);
+  const { maxValor, setCantidadStatic } = useContext(UserContext);
 
+  let val = false;
   const imgSmallArray = [imgSmall1,imgSmall2,imgSmall3,imgSmall4];
 
-  if(valor == null){
-    return valor
+  const handleDelete = () => {
+    val = false
+    localStorage.clear();
   }
-  let [nuevoValor] = valor
-  
+
+  if(maxValor == null){
+    return maxValor
+  }
+
+  let [nuevoValor] = maxValor
+
+  nuevoValor == undefined ? nuevoValor = 0 : [nuevoValor] = maxValor;
+  nuevoValor == 0 ? val = false : val = true;
+  setCantidadStatic(nuevoValor)
+
+  console.log(localStorage.length)
+
   return (
     <>
     {
-      estado ? <>
+      val ? <>
       <section className='w-full mt-5'>
           <div className='flex w-full justify-center'>
             <div className='ml-2'>
@@ -29,9 +42,9 @@ const Productos = () => {
             </div>
               <div className='grid grid-cols-4 w-full mx-3'>
                 <p className='col-span-4 text-Dark-grayish-blue'>Fall Limited Edition Sneakers</p>
-                <button className='col-end-6 mt-5'>
+                <a href='' onClick={handleDelete} className='col-end-6 mt-5'>
                   <img src={iconoDelete} alt="Este es el icono de eliminar" />
-                </button>
+                </a>
                 <div className='flex gap-1 -mt-3'>
                   <p className='text-Dark-grayish-blue'>125.00</p>
                   <p className='text-Dark-grayish-blue'>x</p>
@@ -42,7 +55,7 @@ const Productos = () => {
           </div>
       </section>
       <button className='bg-orange-primary w-[90%] grid text-white font-bold justify-items-center items-center text-center mx-auto mt-5 py-4 rounded-lg'>Checkout</button>
-      </> :<p className="w-6/12 mx-auto mt-14 bg-black text-gray-500">Your cart is empety</p>
+      </> : <p className="w-6/12 mx-auto mt-14 bg-black text-gray-500">Your cart is empety</p>
     }
     
     </>

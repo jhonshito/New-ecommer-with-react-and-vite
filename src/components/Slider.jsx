@@ -50,7 +50,7 @@ const Slider = () => {
             <img onClick={handleSubSlider} className='border-none lg:cursor-pointer lg:rounded-lg h-64 lg:w-96 lg:h-96 w-full aspect-video lg:aspect-video md:rounded-lg md:h-96 md:w-[24rem] md:cursor-default md:mx-auto lg:mx-0' src={imgSmallArray[index]} alt="Estas son imagenes de productos" />
         </div>
 
-        <div className='lg:hidden md:hidden flex justify-between absolute top-[15%] w-[100%]'>
+        <div className='lg:hidden md:hidden flex justify-between absolute top-44 w-[100%]'>
           <button onClick={handlePrevent} className='px-4 py-3 ml-3 rounded-full bg-white'>
             <img src={preventIcon} alt="Icono prevent" />
           </button>

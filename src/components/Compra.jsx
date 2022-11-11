@@ -9,11 +9,8 @@ const Compra = () => {
 
   const valores = [];
 
-  const {setEstado, data, setValor} = useContext(UserContext);
-  const [incrementador, setIncrementador] = useState(0);
-
-  const valor = 125000;
-  const nuevoValor = valor.toLocaleString('en-US');
+  const { data, setValor, cantidadStatic} = useContext(UserContext);
+  const [incrementador, setIncrementador,] = useState(0);
 
   const [produ,  setProdu] = useState(0);
   const [cantidad, setCantidad] = useState(0);
@@ -44,7 +41,7 @@ const Compra = () => {
 
 
   const handleAdd = () => {
-    setEstado(true);
+    // setEstado(true);
     datos.datosEstado = true;
     datos.datosIndex = data;
     valores.push(datos);
@@ -53,14 +50,13 @@ const Compra = () => {
     // setValor(incrementador)
     localStorage.setItem('valores', JSON.stringify(valores));
     // console.log(valores)
+    console.log(cantidadStatic)
   };
 
   useEffect(() => {
     setValor(JSON.parse(localStorage.getItem('valores')))
   },[incrementador])
 
-
-  // console.log(newDatos)
 
   return (
     <section className="container mx-auto px-7 lg:w-2/3 lg:mt-20 lg:ml-20 md:mt-20 xl:ml-0 xl:mt-32">
@@ -71,7 +67,7 @@ const Compra = () => {
         durable rubber outer sole, they’ll withstand everything the weather can offer.
     </p>
     <div className="flex items-center md:grid-cols-3 justify-between mb-10 md:justify-start lg:grid lg:grid-cols-3 xl:grid xl:grid-cols-2">
-      <h2 className="text-3xl font-bold">${nuevoValor}</h2>
+      <h2 className="text-3xl font-bold">$125,00</h2>
       <span className="bg-Pale-orange py-0 rounded text-orange-primary font-bold px-2 -ml-20 lg:w-12 md:px-0 md:ml-5 xl:-ml-10 lg:mx-8">50%</span>
       <span className="text-Grayish-blue line-through text-lg md:ml-[70%] md:mr-20 xl:ml-0">$250.00</span>
     </div>
