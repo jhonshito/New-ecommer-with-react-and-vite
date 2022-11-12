@@ -29,8 +29,6 @@ const Productos = () => {
   nuevoValor == 0 ? val = false : val = true;
   setCantidadStatic(nuevoValor)
 
-  console.log(localStorage.length)
-
   return (
     <>
     {
